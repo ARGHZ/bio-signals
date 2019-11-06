@@ -4,6 +4,9 @@ from scipy import io as io
 from scipy import signal as spsignal
 
 
+np.random.seed(0)
+
+
 def displaycorrelationgraphs(first_vector, second_vector):
     sig = first_vector
     sig_noise = second_vector
@@ -167,12 +170,33 @@ def gridsearchbutterworthfilter(dataset, scattered_params, btype='low'):
         #plt.show()
         plt.clf()
 
+def butterfiltering(signal, n, w_n, btype):
+    b, a = spsignal.butter(n, w_n, btype)
+    filtered_signal = spsignal.lfilter(b, a, signal)
+    return filtered_signal
+
+
+def wienerfiltering(signal):
+    filtered_signal = spsignal.wiener(signal)
+    return filtered_signal
+
+
+def comparewienersyncandlowpassfilters(signal_data):
+    wiener = wienerfiltering(signal_data)
+
+    n, w_n, type = 8, 70 / (1000.0 / 2), 'low'
+    butter_low = butterfiltering(signal_data, n, w_n, type)
+
+    plt.plot(signal_data, 'k', wiener, 'g--', butter_low, 'r--')
+    plt.show()
+    plt.clf()
+
 
 if __name__ == '__main__':
     #mat = io.loadmat('file.mat')
     data = np.loadtxt('../data/ecg_hfn.dat')
 
-    selectqrsfromsignal(data)
+    # selectqrsfromsignal(data)
 
     params = ((2, 10), (8, 20), (8, 40), (8, 70))
     # gridsearchbutterworthfilter(data, params, 'low')
