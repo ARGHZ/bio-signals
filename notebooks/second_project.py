@@ -62,7 +62,7 @@ def searchformaxcoefcorr(template, (start, finish), signal):
     plt.title(title)
     plt.margins(0, 0.1)
     plt.tight_layout()
-    #plt.show()
+    plt.show()
     plt.clf()
 
     return {'coef_corr': coef_corr, 'vector': merged_vectors}
@@ -87,14 +87,14 @@ def selectqrsfromsignal(data):
 
     corr = spsignal.correlate(data, averaged_signal, 'same')
 
-    fig, (ax_orig, ax_noise, ax_corr) = plt.subplots(3, 1, sharex=True)
+    fig, (ax_orig, ax_noise) = plt.subplots(2, 1, sharex=True)
     ax_orig.plot(data)
     ax_orig.set_title('Original signal')
     ax_noise.plot(averaged_signal, 'r')
     ax_noise.set_title('Signal Averaged')
-    ax_corr.plot(corr, 'g')
+    #ax_corr.plot(corr, 'g')
     #ax_corr.axhline(0.5, ls=':')
-    ax_corr.set_title('Cross-correlated')
+    #ax_corr.set_title('Cross-correlated')
     #ax_orig.margins(0, 0.1)
     #fig.tight_layout()
     fig.show()
@@ -196,7 +196,7 @@ if __name__ == '__main__':
     #mat = io.loadmat('file.mat')
     data = np.loadtxt('../data/ecg_hfn.dat')
 
-    # selectqrsfromsignal(data)
+    selectqrsfromsignal(data)
 
     params = ((2, 10), (8, 20), (8, 40), (8, 70))
     # gridsearchbutterworthfilter(data, params, 'low')
@@ -208,4 +208,6 @@ if __name__ == '__main__':
     for order in order_set:
         for freq in freq_set:
             params.append((order, freq))
-    #gridsearchbutterworthfilter(data, params, 'high')
+    # gridsearchbutterworthfilter(data, params, 'high')
+
+    # comparewienersyncandlowpassfilters(data[700: 700*2])
