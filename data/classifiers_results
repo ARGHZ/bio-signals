@@ -1,0 +1,230 @@
+C:\ProgramData\Anaconda2\envs\signalanalysis\python.exe C:\Users\Juan\AppData\Local\JetBrains\Toolbox\apps\PyCharm-P\ch-0\192.7142.42\helpers\pydev\pydevconsole.py --mode=client --port=61648
+Vendor:  Continuum Analytics, Inc.
+Package: mkl
+Message: trial mode expires in 28 days
+import sys; print('Python %s on %s' % (sys.version, sys.platform))
+sys.path.extend(['C:\\Users\\Juan\\PycharmProjects\\SignalAnalysis', 'C:/Users/Juan/PycharmProjects/SignalAnalysis'])
+PyDev console: starting.
+Python 2.7.13 |Continuum Analytics, Inc.| (default, May 11 2017, 13:17:26) [MSC v.1500 64 bit (AMD64)] on win32
+runfile('C:/Users/Juan/PycharmProjects/SignalAnalysis/notebooks/third_project.py', wdir='C:/Users/Juan/PycharmProjects/SignalAnalysis/notebooks')
+0.138613861386
+             precision    recall  f1-score   support
+          1       0.08      0.03      0.04       101
+          2       0.19      0.30      0.23       101
+          3       0.08      0.09      0.09       101
+avg / total       0.12      0.14      0.12       303
+biosignals_multi_kfolds_Poly-2 Kernel
+0.41935483871
+C:\ProgramData\Anaconda2\envs\signalanalysis\lib\site-packages\sklearn\metrics\classification.py:958: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples.
+  'precision', 'predicted', average, warn_for)
+             precision    recall  f1-score   support
+          1       0.00      0.00      0.00        11
+          2       0.42      1.00      0.59        13
+          3       0.00      0.00      0.00         7
+avg / total       0.18      0.42      0.25        31
+biosignals_multi_kfolds_AdaBoost
+0.322580645161
+             precision    recall  f1-score   support
+          1       0.33      0.56      0.42         9
+          2       0.20      0.10      0.13        10
+          3       0.36      0.33      0.35        12
+avg / total       0.30      0.32      0.30        31
+biosignals_multi_kfolds_GradientBoosting
+0.258064516129
+             precision    recall  f1-score   support
+          1       0.17      0.25      0.20         8
+          2       0.14      0.10      0.12        10
+          3       0.42      0.38      0.40        13
+avg / total       0.26      0.26      0.26        31
+biosignals_multi_kfolds_Poly-2 Kernel
+0.451612903226
+             precision    recall  f1-score   support
+          1       0.00      0.00      0.00         9
+          2       0.00      0.00      0.00         8
+          3       0.45      1.00      0.62        14
+avg / total       0.20      0.45      0.28        31
+biosignals_multi_kfolds_AdaBoost
+0.387096774194
+             precision    recall  f1-score   support
+          1       0.64      0.58      0.61        12
+          2       0.27      0.57      0.36         7
+          3       0.20      0.08      0.12        12
+avg / total       0.38      0.39      0.36        31
+biosignals_multi_kfolds_GradientBoosting
+0.483870967742
+             precision    recall  f1-score   support
+          1       0.50      0.36      0.42        14
+          2       0.50      0.73      0.59        11
+          3       0.40      0.33      0.36         6
+avg / total       0.48      0.48      0.47        31
+biosignals_multi_kfolds_Poly-2 Kernel
+0.290322580645
+             precision    recall  f1-score   support
+          1       0.00      0.00      0.00        14
+          2       0.29      1.00      0.45         9
+          3       0.00      0.00      0.00         8
+avg / total       0.08      0.29      0.13        31
+biosignals_multi_kfolds_AdaBoost
+0.258064516129
+             precision    recall  f1-score   support
+          1       0.14      0.11      0.12         9
+          2       0.36      0.33      0.35        12
+          3       0.23      0.30      0.26        10
+avg / total       0.26      0.26      0.26        31
+biosignals_multi_kfolds_GradientBoosting
+0.290322580645
+             precision    recall  f1-score   support
+          1       0.36      0.33      0.35        12
+          2       0.00      0.00      0.00        10
+          3       0.38      0.56      0.45         9
+avg / total       0.25      0.29      0.27        31
+biosignals_multi_kfolds_Poly-2 Kernel
+0.466666666667
+             precision    recall  f1-score   support
+          1       0.47      1.00      0.64        14
+          2       0.00      0.00      0.00         7
+          3       0.00      0.00      0.00         9
+avg / total       0.22      0.47      0.30        30
+biosignals_multi_kfolds_AdaBoost
+0.3
+             precision    recall  f1-score   support
+          1       0.33      0.17      0.22        12
+          2       0.30      0.33      0.32         9
+          3       0.29      0.44      0.35         9
+avg / total       0.31      0.30      0.29        30
+biosignals_multi_kfolds_GradientBoosting
+0.266666666667
+             precision    recall  f1-score   support
+          1       0.14      0.11      0.12         9
+          2       0.40      0.33      0.36        12
+          3       0.23      0.33      0.27         9
+avg / total       0.27      0.27      0.26        30
+biosignals_multi_kfolds_Poly-2 Kernel
+0.366666666667
+             precision    recall  f1-score   support
+          1       0.00      0.00      0.00        10
+          2       0.00      0.00      0.00         9
+          3       0.37      1.00      0.54        11
+avg / total       0.13      0.37      0.20        30
+biosignals_multi_kfolds_AdaBoost
+0.3
+             precision    recall  f1-score   support
+          1       0.30      0.50      0.37         6
+          2       0.44      0.22      0.30        18
+          3       0.18      0.33      0.24         6
+avg / total       0.36      0.30      0.30        30
+biosignals_multi_kfolds_GradientBoosting
+0.233333333333
+             precision    recall  f1-score   support
+          1       0.40      0.33      0.36        12
+          2       0.20      0.20      0.20        10
+          3       0.10      0.12      0.11         8
+avg / total       0.25      0.23      0.24        30
+biosignals_multi_kfolds_Poly-2 Kernel
+0.466666666667
+             precision    recall  f1-score   support
+          1       0.00      0.00      0.00        10
+          2       0.00      0.00      0.00         6
+          3       0.47      1.00      0.64        14
+avg / total       0.22      0.47      0.30        30
+biosignals_multi_kfolds_AdaBoost
+0.333333333333
+             precision    recall  f1-score   support
+          1       0.42      0.50      0.45        10
+          2       0.11      0.20      0.14         5
+          3       0.44      0.27      0.33        15
+avg / total       0.38      0.33      0.34        30
+biosignals_multi_kfolds_GradientBoosting
+0.5
+             precision    recall  f1-score   support
+          1       0.56      0.90      0.69        10
+          2       0.38      0.33      0.35         9
+          3       0.50      0.27      0.35        11
+avg / total       0.48      0.50      0.47        30
+biosignals_multi_kfolds_Poly-2 Kernel
+0.266666666667
+             precision    recall  f1-score   support
+          1       0.00      0.00      0.00        14
+          2       0.00      0.00      0.00         8
+          3       0.27      1.00      0.42         8
+avg / total       0.07      0.27      0.11        30
+biosignals_multi_kfolds_AdaBoost
+0.433333333333
+             precision    recall  f1-score   support
+          1       0.56      0.50      0.53        10
+          2       0.43      0.43      0.43        14
+          3       0.29      0.33      0.31         6
+avg / total       0.44      0.43      0.44        30
+biosignals_multi_kfolds_GradientBoosting
+0.366666666667
+             precision    recall  f1-score   support
+          1       0.27      0.50      0.35         6
+          2       0.47      0.58      0.52        12
+          3       0.25      0.08      0.12        12
+avg / total       0.34      0.37      0.33        30
+biosignals_multi_kfolds_Poly-2 Kernel
+0.333333333333
+             precision    recall  f1-score   support
+          1       0.00      0.00      0.00        13
+          2       0.33      1.00      0.50        10
+          3       0.00      0.00      0.00         7
+avg / total       0.11      0.33      0.17        30
+biosignals_multi_kfolds_AdaBoost
+0.4
+             precision    recall  f1-score   support
+          1       0.33      0.44      0.38         9
+          2       0.67      0.18      0.29        11
+          3       0.40      0.60      0.48        10
+avg / total       0.48      0.40      0.38        30
+biosignals_multi_kfolds_GradientBoosting
+0.4
+             precision    recall  f1-score   support
+          1       0.11      0.14      0.12         7
+          2       0.60      0.46      0.52        13
+          3       0.45      0.50      0.48        10
+avg / total       0.44      0.40      0.41        30
+biosignals_multi_kfolds_Poly-2 Kernel
+0.4
+             precision    recall  f1-score   support
+          1       0.00      0.00      0.00         8
+          2       0.40      1.00      0.57        12
+          3       0.00      0.00      0.00        10
+avg / total       0.16      0.40      0.23        30
+biosignals_multi_kfolds_AdaBoost
+0.2
+             precision    recall  f1-score   support
+          1       0.10      0.17      0.12         6
+          2       0.20      0.17      0.18        12
+          3       0.30      0.25      0.27        12
+avg / total       0.22      0.20      0.21        30
+biosignals_multi_kfolds_GradientBoosting
+0.366666666667
+             precision    recall  f1-score   support
+          1       0.40      0.36      0.38        11
+          2       0.56      0.45      0.50        11
+          3       0.18      0.25      0.21         8
+avg / total       0.40      0.37      0.38        30
+biosignals_multi_kfolds_Poly-2 Kernel
+0.533333333333
+             precision    recall  f1-score   support
+          1       0.53      1.00      0.70        16
+          2       0.00      0.00      0.00         7
+          3       0.00      0.00      0.00         7
+avg / total       0.28      0.53      0.37        30
+biosignals_multi_kfolds_AdaBoost
+0.466666666667
+             precision    recall  f1-score   support
+          1       0.44      0.36      0.40        11
+          2       0.42      0.62      0.50         8
+          3       0.56      0.45      0.50        11
+avg / total       0.48      0.47      0.46        30
+biosignals_multi_kfolds_GradientBoosting
+0.6
+             precision    recall  f1-score   support
+          1       0.80      0.36      0.50        11
+          2       0.46      0.67      0.55         9
+          3       0.67      0.80      0.73        10
+avg / total       0.65      0.60      0.59        30
+ERROR whilst saving biosignals_multi_kfolds_Poly-2 Kernel_1 metrics: all the input arrays must have same number of dimensions
+ERROR whilst saving biosignals_multi_kfolds_AdaBoost_1 metrics: all the input arrays must have same number of dimensions
+ERROR whilst saving biosignals_multi_kfolds_GradientBoosting_1 metrics: all the input arrays must have same number of dimensions
