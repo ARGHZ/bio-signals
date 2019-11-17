@@ -1,6 +1,7 @@
 # coding=utf-8
 import cProfile, pstats, StringIO
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 from scipy import io
 from scipy.spatial.distance import euclidean
@@ -141,8 +142,8 @@ def armodelclassificatorpredict(characteristic_vector, base_models):
         euc = euclidean(characteristic_vector, coefficients)
         euc_distances.append((euc, tag))
 
-    euc_distances = sorted(euc_distances, reverse=True)
-    return euc_distances[0][1]
+    sorted_euc_distances = sorted(euc_distances)
+    return sorted_euc_distances[0][1]
 
 
 def makepredictions(ar_models):
@@ -170,4 +171,4 @@ if __name__ == '__main__':
     data = preprocessingdata(mat)
     arm_classifiers = extractcharacteristicsvector(data)
     makepredictions(arm_classifiers)
-    learningtoclassify('biosignals', 1, np.array(arm_classifiers['train_models']))
+    #learningtoclassify('biosignals', 1, np.array(arm_classifiers['train_models']))

@@ -6,7 +6,7 @@ from scipy import io
 
 def autoregressionmodel(dataset, debug=False):
     model = AR(dataset)
-    model_fit = model.fit()
+    model_fit = model.fit(maxlag=38, trend='nc')
 
     if debug:
         print('Lag: %s' % model_fit.k_ar)
@@ -18,7 +18,7 @@ def autoregressionmodel(dataset, debug=False):
 
 def gridsearchautoregressionmodel(dataset, debug=False):
     model = AR(dataset)
-    model_fit = model.select_order(ic='aic', trend='nc')
+    model_fit = model.fit(ic='bic', trend='nc')
 
     if debug:
         print('Lag: %s' % model_fit.k_ar)
