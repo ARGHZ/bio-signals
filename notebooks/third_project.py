@@ -11,7 +11,8 @@ from auto_regressive import autoregressionmodel
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import AdaBoostClassifier, GradientBoostingClassifier
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
-from sklearn import svm, cross_validation
+from sklearn import svm
+from sklearn.model_selection import KFold
 
 __author__ = 'Juan David Carrillo López'
 
@@ -39,7 +40,7 @@ def learningtoclassify(t_dataset, i_iter='', data_set=[], specific_clf=[]):
 
     x = features_space[:, :features_space.shape[1] - 1]
 
-    kf_total = cross_validation.KFold(len(x), n_folds=10)
+    kf_total = KFold(n_splits=10)
     for type_clf in type_classifier.keys():
         if len(specific_clf) == 0:
             general_metrics = {'Poly-2 Kernel': [[], [], [], []], 'AdaBoost': [[], [], [], []],
@@ -54,7 +55,7 @@ def learningtoclassify(t_dataset, i_iter='', data_set=[], specific_clf=[]):
         else:
             y = features_space[:, features_space.shape[1] - 1:].ravel()
 
-        for train_ind, test_ind in kf_total:
+        for train_ind, test_ind in kf_total.split(x):
             scaled_test_set = x[test_ind]
             for i_clf, (clf_name, clf) in enumerate(classifiers.items()):
                 actual_clf = '{}_{}_kfolds_{}'.format(t_dataset, type_clf, clf_name)
@@ -81,25 +82,12 @@ def learningtoclassify(t_dataset, i_iter='', data_set=[], specific_clf=[]):
                     ind_score = inst_clf.score(x[test_ind], y_true)
                     accuracy = accuracy_score(y_true, y_pred)
                     print accuracy
-                    print classification_report(y_true, y_pred)
+                    if accuracy >= 0.5:
+                        print classification_report(y_true, y_pred)
                     general_metrics[clf_name][0].append(ind_score)
                     last_metric = '-'.join([str(elem) for elem in confusion_matrix(y_true, y_pred).ravel()])
                     general_metrics[clf_name][2].append(tt)
                     general_metrics[clf_name][3].append(last_metric)
-
-        for clf_name in general_metrics.keys():
-            array_a = np.expand_dims(np.array(general_metrics[clf_name][0]), axis=1)
-            array_b = np.array(general_metrics[clf_name][1])
-            array_c = np.expand_dims(np.array(general_metrics[clf_name][2]), axis=1)
-            array_d = np.expand_dims(np.array(general_metrics[clf_name][3]), axis=1)
-            try:
-                results = np.concatenate((array_a, array_b, array_c, array_d), axis=1)
-            except ValueError as e:
-                print 'ERROR whilst saving {}_{}_kfolds_{}_{} metrics: {}'. \
-                    format(t_dataset, type_clf, clf_name, i_iter, str(e))
-                pass
-            else:
-                print 'saved {}_{}_kfolds_{}_{} metrics'.format(t_dataset, type_clf, clf_name, i_iter)
 
 
 def preprocessingdata(data):
@@ -116,6 +104,16 @@ def preprocessingdata(data):
         new_vector.append(pair_sets)
     return new_vector
 
+
+def processunknownclassdata(test_data):
+    characteristics_matrix = []
+    for class_set in test_data:
+        class_set_model_fit = autoregressionmodel(class_set)
+        characteristics_matrix.append(class_set_model_fit.params)
+
+    return characteristics_matrix
+
+
 def extractcharacteristicsvector(data):
     classification = {'base_models': {}, 'train_models': []}
     for pair_set in data:
@@ -130,7 +128,7 @@ def extractcharacteristicsvector(data):
             if template_model_fit.params.shape[0] != class_set_model_fit.params.shape[0]:
                 print 'template AR model vector size: {} | class AR model vector size: {}'. \
                     format(template_model_fit.params.shape[0], class_set_model_fit.params.shape[0])
-    #print 'classification label {}'.format(tag)
+    classification['train_models'] = np.array(classification['train_models'])
     return classification
 
 
@@ -146,23 +144,35 @@ def armodelclassificatorpredict(characteristic_vector, base_models):
     return sorted_euc_distances[0][1]
 
 
-def makepredictions(ar_models):
+def makepredictions(ar_models, testing_data=[], report_quality=False):
     base_models, train_models = ar_models['base_models'], ar_models['train_models']
 
     defined_classes = ('clase1', 'clase2', 'clase3')
     y = []
-    for training_model in train_models:
-        x = training_model[:len(training_model) - 1]
-        predicted_class = armodelclassificatorpredict(x, base_models)
-        correct_class = training_model[len(training_model) - 1]
-
-        y.append((int(correct_class), int(predicted_class)))
+    if len(testing_data) < 1:
+        for training_model in train_models:
+            x = training_model[:len(training_model) - 1]
+            predicted_class = armodelclassificatorpredict(x, base_models)
+            correct_class = training_model[len(training_model) - 1]
+            y.append((int(correct_class), int(predicted_class)))
+    else:
+        for testing_vector in testing_data:
+            x = testing_vector
+            predicted_class = armodelclassificatorpredict(x, base_models)
+            y.append(int(predicted_class))
     y = np.array(y)
-    #print y
-    y_true, y_pred = y[:, 0], y[:, 1]
-    accuracy = accuracy_score(y_true, y_pred)
-    print accuracy
-    print classification_report(y_true, y_pred)
+    print report_quality
+    if report_quality:
+        y_true, y_pred = y[:, 0], y[:, 1]
+        accuracy = accuracy_score(y_true, y_pred)
+        print accuracy
+        print classification_report(y_true, y_pred)
+    return  y
+
+
+def savedatainmatfile(file_name, data):
+    saved_data =io.savemat(file_name, data)
+    return saved_data
 
 
 if __name__ == '__main__':
@@ -170,5 +180,14 @@ if __name__ == '__main__':
     mat = io.loadmat('../data/third_project/datosProy3_2019.mat')
     data = preprocessingdata(mat)
     arm_classifiers = extractcharacteristicsvector(data)
-    makepredictions(arm_classifiers)
-    #learningtoclassify('biosignals', 1, np.array(arm_classifiers['train_models']))
+    predictions = makepredictions(arm_classifiers, report_quality=True)
+    '''
+    unclass_data =  np.array(processunknownclassdata(mat['test']))
+    arm_unclass = extractcharacteristicsvector(unclass_data)
+    predictions = makepredictions(arm_classifiers, testing_data=unclass_data)
+    saving_data = {'predictions': predictions}
+    savedatainmatfile('../data/third_project/predictions_i.mat', saving_data)
+    predictions = io.loadmat('../data/third_project/predictions_i.mat')
+    '''
+
+    learningtoclassify('biosignals', 1, np.array(arm_classifiers['train_models']))
