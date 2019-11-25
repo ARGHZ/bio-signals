@@ -47,7 +47,11 @@ class ExperimentData():
 
         self.matrix = matrix
 
-    def extractcharacteristicsvector(self, maxlags=(1, 2, 3, 4, 5, 6, 23, 24, 25, 28, 33)):
+    def extractcharacteristicsvector(self, maxlags=None):
+
+        if maxlags == None:
+            maxlags = tuple([p for p in range(1, 34)])
+
         dataframe = {'base_models': [], 'order_p': [], 'class': []}
         for maxlag in maxlags:
             classification = {'base_models': {}, 'train_models': []}
@@ -129,7 +133,7 @@ def autoregressionmodel(dataset, maxlag, debug=False):
 if __name__ == '__main__':
 
     mat = io.loadmat('../data/third_project/datosProy3_2019.mat')
-    gridsearchautoregressionmodel(mat)
+    #gridsearchautoregressionmodel(mat)
     xperiment_data = ExperimentData(mat)
     xperiment_data.buildmatrixwithclasses()
     data = xperiment_data.extractcharacteristicsvector()
