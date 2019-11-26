@@ -54,10 +54,13 @@ class ExperimentData():
 
         dataframe = {'base_models': [], 'order_p': [], 'class': []}
         for maxlag in maxlags:
-            classification = {'base_models': {}, 'train_models': []}
+            base_models = []
+            classification = {'base_models': [], 'train_models': []}
             tag_class = 1
             template_model_fit = autoregressionmodel(self.class_1_mean, maxlag=maxlag)
-            #dataframe['base_models']['class1'] = template_model_fit.params
+
+            arm_params = template_model_fit.params
+            base_models.append(arm_params)
             for class_set in self.class_1:
                 class_set_model_fit = autoregressionmodel(class_set, maxlag=maxlag)
                 classification['train_models'].append(np.append(class_set_model_fit.params, tag_class))
@@ -68,10 +71,12 @@ class ExperimentData():
             classification['train_models'] = np.array(classification['train_models'])
             class1_coeffs = classification['train_models']
 
-            classification = {'base_models': {}, 'train_models': []}
+            classification = {'base_models': [], 'train_models': []}
             tag_class = 2
             template_model_fit = autoregressionmodel(self.class_2_mean, maxlag=maxlag)
-            # dataframe['base_models']['class1'] = template_model_fit.params
+
+            arm_params = template_model_fit.params
+            base_models.append(arm_params)
             for class_set in self.class_2:
                 class_set_model_fit = autoregressionmodel(class_set, maxlag=maxlag)
                 classification['train_models'].append(np.append(class_set_model_fit.params, tag_class))
@@ -82,10 +87,12 @@ class ExperimentData():
             classification['train_models'] = np.array(classification['train_models'])
             class2_coeffs = classification['train_models']
 
-            classification = {'base_models': {}, 'train_models': []}
+            classification = {'base_models': [], 'train_models': []}
             tag_class = 3
             template_model_fit = autoregressionmodel(self.class_3_mean, maxlag=maxlag)
-            # dataframe['base_models']['class1'] = template_model_fit.params
+
+            arm_params = template_model_fit.params
+            base_models.append(arm_params)
             for class_set in self.class_3:
                 class_set_model_fit = autoregressionmodel(class_set, maxlag=maxlag)
                 classification['train_models'].append(np.append(class_set_model_fit.params, tag_class))
@@ -97,6 +104,9 @@ class ExperimentData():
             class3_coeffs = classification['train_models']
 
             all_characteristiccs_matrix = np.concatenate((class1_coeffs, class2_coeffs, class3_coeffs), axis=0)
+            base_coeffs_file = 'base_coeffs_order_{}_{}_{}.csv'.format(maxlag, 'aic', 'nc')
+            np.savetxt('../data/third_project/{}'.format(base_coeffs_file), base_models, delimiter=',')
+
             file_name = 'coeffs_order_{}_{}_{}.csv'.format(maxlag, 'aic', 'nc')
             np.savetxt('../data/third_project/{}'.format(file_name), all_characteristiccs_matrix, delimiter=',')
 
